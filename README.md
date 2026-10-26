@@ -32,8 +32,15 @@ rule decides whether the work goes on. A "no" stops the topic or hands it to a p
 **Why gates?** A weak step should never quietly pass bad work to the next one. A gate makes each
 step prove it finished properly before anything builds on it.
 
-- **Every step, what it does and why:** [docs/methods.md](docs/methods.md)
-- **The 12 big design choices, the reasons, and what they cost:** [docs/design-decisions.md](docs/design-decisions.md)
+## Read more
+
+| Page | What it covers |
+|---|---|
+| [Why this exists](docs/why.md) | The problem for families, the gap in today's tools, and why it matters |
+| [Methods, step by step](docs/methods.md) | Every step and gate: what happens, who does it, and why |
+| [The agents and models](docs/agents-and-models.md) | Every AI agent, why we use Claude in some steps and Jev in others, and where the money goes |
+| [Design decisions](docs/design-decisions.md) | The 12 biggest choices, the reasons, what they cost, and what we measured |
+| [Decision log](docs/decision-log.md) | A dated record of the founder's decisions during the build |
 
 ## Three rules the engine never breaks
 
