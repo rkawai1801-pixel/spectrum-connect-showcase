@@ -32,8 +32,16 @@ rule decides whether the work goes on. A "no" stops the topic or hands it to a p
 **Why gates?** A weak step should never quietly pass bad work to the next one. A gate makes each
 step prove it finished properly before anything builds on it.
 
-- **Every step, what it does and why:** [docs/methods.md](docs/methods.md)
-- **The 12 big design choices, the reasons, and what they cost:** [docs/design-decisions.md](docs/design-decisions.md)
+## Read more
+
+| Page | What it covers |
+|---|---|
+| [Why this exists](docs/why.md) | How it started, the three walls between parents and the evidence, and why it matters |
+| [Which research we use](docs/evidence-we-use.md) | Why case reports are left out, what a fair test is, and how each kind of paper is treated |
+| [Methods, step by step](docs/methods.md) | Every step and gate: what happens, who does it, and why |
+| [The agents and models](docs/agents-and-models.md) | Every AI agent, why we use Claude in some steps and Jev in others, the tests behind each choice, and where the money goes |
+| [Design decisions](docs/design-decisions.md) | The 12 biggest choices, the reasons, what they cost, and what we measured |
+| [Decision log](docs/decision-log.md) | A dated record of the founder's decisions during the build |
 
 ## Three rules the engine never breaks
 
@@ -109,7 +117,11 @@ The engine has five parts:
 | **Sign-Off Workbench** | The human gate: checks the reviewer, records a tamper-evident signature |
 | **Operator Console** | The web app a reviewer uses, with password and two-factor sign-in |
 
-**Testing:** 3,281 automated tests passed, none failed (measured 17 October 2026).
+**Build record:** the engine's code was started on 3 July 2026. Between 10 August and 18 October
+2026 the team opened 449 pull requests (reviewed changes) and merged 400 of them.
+
+**Testing:** 3,446 automated tests passed and none failed, across all six parts of the code (run on
+26 October 2026, on the latest test-branch code).
 
 **Stack:** Python · FastAPI · SQLAlchemy · Postgres / SQLite · Claude (Anthropic) · pytest · Docker
 
