@@ -44,10 +44,19 @@ anything. Locking it first is standard in medical research.
 ### Step 3. Search
 
 **What happens.** Code searches PubMed and other medical sources, plus ClinicalTrials.gov, using the
-locked plan. It also checks which papers are free to read in full.
+locked plan. It also checks which papers are free to read in full. Then two free sorting steps run
+before any AI reads anything:
 
-**Why.** A review is only as good as its search. Missing papers can change the answer. The search is
-run by code so it can be repeated exactly.
+- **The label sort.** PubMed labels every paper with its type. A fixed rule removes types that are
+  never evidence, such as case reports, editorials, trial plans and retracted papers. (In the
+  11 October 2026 run: 126 of 520 papers.) Which types are left out, and why, is explained in
+  [evidence-we-use.md](evidence-we-use.md).
+- **The trial check.** Trials registered on ClinicalTrials.gov are matched to their papers. Trials
+  with no paper are listed in the audit. (In the same run: 28 trials found, 20 with no paper.)
+
+**Why.** A review is only as good as its search. Missing papers can change the answer. Trials that
+were finished but never published can hide results that did not go well, so they are shown, not
+ignored. The search is run by code so it can be repeated exactly.
 
 ### Step 4. Screen
 
@@ -128,8 +137,23 @@ is missing.
 **What happens.** Code turns the ratings into a plain status a parent can understand, such as
 "promising but contested".
 
+**The table.** It is checked from the top, and the first row that matches wins:
+
+| Row | When | Status a parent sees |
+|---|---|---|
+| 1 | A harm signal, and no benefit at moderate certainty or better | **Actively harmful** |
+| 2 | A harm signal, and a benefit at moderate certainty or better | **Promising but contested** (both are reported) |
+| 3 | Good-quality reviews disagree, and it is not resolved | **Promising but contested** |
+| 4 | A benefit at moderate certainty or better | **Settled** |
+| 5 | No benefit, at moderate certainty or better | **Not supported: studied, no benefit found** |
+| 6 | Low certainty, and none of the rows above | **Promising but contested** (an early signal, not a settled effect) |
+| 7 | Anything else (very low certainty, or no research) | **Not supported: not enough research yet** |
+
 **Why.** "Low certainty, inconsistent direction" means little to most parents. A fixed table, not
-the AI, picks the words, so the same evidence always gets the same status.
+the AI, picks the words, so the same evidence always gets the same status. Harm is checked first on
+purpose: a benefit must reach moderate certainty to be called settled, but a harm signal does not
+have to clear that bar to be shown. Rows 5 and 7 are kept apart so "nobody has tested this properly"
+is never confused with "it was tested and did not work".
 
 ### Step 11. Write reports
 
